@@ -8,4 +8,5 @@ import com.apps.developer.moblileappws.entity.UserEntity;
 @Repository
 public interface UserRepository extends CrudRepository<UserEntity, Long> {
 
+    UserEntity findByEmail(final String email);
 }
