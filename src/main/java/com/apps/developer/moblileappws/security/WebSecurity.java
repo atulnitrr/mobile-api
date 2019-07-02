@@ -28,7 +28,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .addFilter(getAuthenticationFilter()); // other request needs to
+                .addFilter(getAuthenticationFilter())
+                .addFilter(new AuthorizationFilter(authenticationManager())); // other request needs to
         // be authenticated
     }
 
