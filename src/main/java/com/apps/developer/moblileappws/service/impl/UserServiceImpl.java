@@ -7,6 +7,7 @@ import com.apps.developer.moblileappws.dto.UserDto;
 import com.apps.developer.moblileappws.entity.UserEntity;
 import com.apps.developer.moblileappws.repository.UserRepository;
 import com.apps.developer.moblileappws.service.UserService;
+import com.apps.developer.moblileappws.utils.Utils;
 
 
 @Service
@@ -14,6 +15,9 @@ public class UserServiceImpl  implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private Utils utils;
 
     @Override public UserDto createUser(final UserDto userDto) {
 
@@ -23,7 +27,7 @@ public class UserServiceImpl  implements UserService {
         final UserEntity userEntity = new UserEntity();
         BeanUtils.copyProperties(userDto, userEntity);
         userEntity.setEncryptedPassword("test");
-        userEntity.setUserId("test-userId");
+        userEntity.setUserId(utils.generateUserId(30));
 
 
 
