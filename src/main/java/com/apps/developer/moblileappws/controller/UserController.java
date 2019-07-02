@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,9 +26,13 @@ public class UserController {
     private UserService userService;
 
 
-    @GetMapping
-    public String getUser() {
-        return "Get user called";
+    @GetMapping(path = "/{userId}")
+    public ResponseEntity<UserResponse> getUser(@PathVariable final String userId) {
+
+        final UserResponse userResponse = new UserResponse();
+        final UserDto userDto = userService.getUserByUserID(userId);
+        BeanUtils.copyProperties(userDto, userResponse);
+        return ResponseEntity.ok().body(userResponse);
     }
 
     @PostMapping
