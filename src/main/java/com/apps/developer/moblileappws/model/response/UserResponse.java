@@ -1,4 +1,4 @@
-package com.apps.developer.moblileappws.modal.response;
+package com.apps.developer.moblileappws.model.response;
 
 public class UserResponse {
 

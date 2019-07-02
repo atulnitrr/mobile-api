@@ -1,4 +1,4 @@
-package com.apps.developer.moblileappws.modal.request;
+package com.apps.developer.moblileappws.model.request;
 
 public class UserRequest {
 

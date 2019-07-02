@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.apps.developer.moblileappws.dto.UserDto;
-import com.apps.developer.moblileappws.modal.request.UserRequest;
-import com.apps.developer.moblileappws.modal.response.UserResponse;
+import com.apps.developer.moblileappws.model.request.UserRequest;
+import com.apps.developer.moblileappws.model.response.UserResponse;
 import com.apps.developer.moblileappws.service.UserService;
 
 

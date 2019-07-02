@@ -1,7 +1,11 @@
 package com.apps.developer.moblileappws.service.impl;
 
+import java.util.Collections;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.apps.developer.moblileappws.dto.UserDto;
@@ -39,5 +43,14 @@ public class UserServiceImpl  implements UserService {
         final UserDto returnUseDto = new UserDto();
         BeanUtils.copyProperties(storedUser, returnUseDto);
         return returnUseDto;
+    }
+
+    @Override public UserDetails loadUserByUsername(final String email) throws UsernameNotFoundException {
+        final UserEntity userEntity = userRepository.findByEmail(email);
+        if (userEntity == null) {
+
+            throw new UsernameNotFoundException(email);
+        }
+        return new User(userEntity.getEmail(), userEntity.getEncryptedPassword(), Collections.emptyList());
     }
 }
