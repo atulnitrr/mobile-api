@@ -2,6 +2,7 @@ package com.apps.developer.moblileappws.service.impl;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.apps.developer.moblileappws.dto.UserDto;
 import com.apps.developer.moblileappws.entity.UserEntity;
@@ -19,6 +20,9 @@ public class UserServiceImpl  implements UserService {
     @Autowired
     private Utils utils;
 
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Override public UserDto createUser(final UserDto userDto) {
 
         if (userRepository.findByEmail(userDto.getEmail()) != null)
@@ -26,7 +30,7 @@ public class UserServiceImpl  implements UserService {
 
         final UserEntity userEntity = new UserEntity();
         BeanUtils.copyProperties(userDto, userEntity);
-        userEntity.setEncryptedPassword("test");
+        userEntity.setEncryptedPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
         userEntity.setUserId(utils.generateUserId(30));
 
 
