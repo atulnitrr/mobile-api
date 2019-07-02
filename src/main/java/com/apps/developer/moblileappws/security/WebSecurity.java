@@ -5,7 +5,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.apps.developer.moblileappws.service.UserService;
 
@@ -24,9 +23,13 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     @Override protected void configure(final HttpSecurity http) throws Exception {
 
-        http.csrf().disable().authorizeRequests().antMatchers(HttpMethod.POST, "/users")
+        http.csrf().disable().authorizeRequests()
+                .antMatchers(HttpMethod.POST, SecurityConsts.SIGN_UP_URL)
                 .permitAll()
-                .anyRequest().authenticated(); // other request needs to be authenticated
+                .anyRequest().authenticated()
+                .and()
+                .addFilter(new AuthenticationFilter(authenticationManager())); // other request needs to
+        // be authenticated
     }
 
     @Override protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
