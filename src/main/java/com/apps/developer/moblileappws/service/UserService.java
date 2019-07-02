@@ -7,4 +7,6 @@ import com.apps.developer.moblileappws.dto.UserDto;
 public interface UserService extends UserDetailsService {
 
     UserDto createUser(final UserDto userDto);
+    UserDto getUser(final String email);
 }
+
